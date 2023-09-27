@@ -1,2 +1,6 @@
-# python_backend_hws
-Homework for the course "Python Backend"
+# Homework 1
+How to run:
+```
+pip install -r requirements.txt
+uvicorn app.main:app --reload
+```
