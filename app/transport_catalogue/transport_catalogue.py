@@ -1,4 +1,4 @@
-from typing import Dict, List, Optional, Set
+from typing import Dict, List, Optional, Set, Tuple
 
 from app.transport_catalogue.domain.route_settings import RouteSettings
 from app.transport_catalogue.geo.coordinates import Coordinates, compute_distance
@@ -18,7 +18,7 @@ class TransportCatalogue:
         self.buses_in_stop_index: Dict[Stop, Set[str]] = {}
 
         self.route_settings: RouteSettings = RouteSettings()
-        self.dist_stops_index: Dict[PairStops, float] = {}
+        self.dist_stops_index: Dict[Tuple[str, str], float] = {}
 
     def add_stop(self, stop_name: str, lat: float, lon: float):
         self.stops.append(Stop(stop_name, Coordinates(lat, lon)))
@@ -104,21 +104,17 @@ class TransportCatalogue:
         self.route_settings = RouteSettings(bus_wait_time, bus_velocity)
 
     def set_dist_stops(self, stop_from: str, stop_to: str, dist: float) -> None:
-        pair_stops = PairStops(
-            self.find_stop_by_name(stop_from), self.find_stop_by_name(stop_to)
-        )
-        self.dist_stops_index[pair_stops] = dist
+        self.dist_stops_index[(stop_from, stop_to)] = dist
 
     def get_dist_stops(self, stop_from: str, stop_to: str) -> float:
         pair_stops = PairStops(
             self.find_stop_by_name(stop_from), self.find_stop_by_name(stop_to)
         )
         if pair_stops.stop_from is not None and pair_stops.stop_to is not None:
-            if pair_stops in self.dist_stops_index:
-                return self.dist_stops_index[pair_stops]
-            pair_stops.swap_stops()
-            if pair_stops in self.dist_stops_index:
-                return self.dist_stops_index[pair_stops]
+            if (stop_from, stop_to) in self.dist_stops_index:
+                return self.dist_stops_index[(stop_from, stop_to)]
+            if (stop_to, stop_from) in self.dist_stops_index:
+                return self.dist_stops_index[(stop_to, stop_from)]
 
             return compute_distance(
                 pair_stops.stop_from.coordinates, pair_stops.stop_to.coordinates

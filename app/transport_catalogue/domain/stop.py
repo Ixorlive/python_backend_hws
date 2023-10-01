@@ -25,11 +25,3 @@ class PairStops:
 
     def swap_stops(self):
         self.stop_from, self.stop_to = self.stop_to, self.stop_from
-
-    def __eq__(self, other) -> bool:
-        if isinstance(other, PairStops):
-            return self.stop_from == other.stop_from and self.stop_to == other.stop_to
-        return False
-
-    def __hash__(self):
-        return hash((self.stop_from, self.stop_to))
