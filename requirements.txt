@@ -1,5 +1,7 @@
 black
 fastapi
+# useless, only for TestClient in fastapi
+httpx
 pre-commit
 pytest
 pytest-mock

@@ -64,11 +64,13 @@ async def add_bus(bus: models.Bus):
 #      "14",
 #      "24"
 #  ]}
-@router.get("/stop")
+@router.post("/stop")
 async def get_stop(stop_query: models.StopQuery):
     buses = db.get_list_buses_by_stop(stop_query.stop_name)
     if buses is None:
-        return {"buses": {}}
+        raise HTTPException(
+            status_code=404, detail=f"Stop {stop_query.stop_name} was not found"
+        )
     return {"buses": buses}
 
 
@@ -80,7 +82,7 @@ async def get_stop(stop_query: models.StopQuery):
 #      "stop_count": 8,
 #      "unique_stop_count": 7
 #  },
-@router.get("/bus_info")
+@router.post("/bus_info")
 async def get_route_stops(bus_info_: models.BusInfo):
     bus_info = db.get_bus_info(bus_info_.bus_name)
     if bus_info is None:
@@ -107,7 +109,7 @@ async def get_route_stops(bus_info_: models.BusInfo):
 #          "time": 1.7,
 #          "type": "Bus"
 #      },]
-@router.get("/route")
+@router.post("/route")
 async def get_route(route_query: models.Route):
     global req_handler
     if req_handler is None:
@@ -142,7 +144,7 @@ async def get_route(route_query: models.Route):
 
 
 # Update the transport router, rebuilding graph/router
-@router.get("/update_router")
+@router.post("/update_router")
 async def update_router():
     """
     Note: Very slow operation (O(n^3), where n - count of stops (2*n))!
