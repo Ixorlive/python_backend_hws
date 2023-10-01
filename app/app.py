@@ -13,4 +13,4 @@ def read_root():
     return {"message": "Welcome to Transport Catalogue manager"}
 
 
-app.include_router(router, prefix="/", tags=["hello"])
+app.include_router(router, prefix="/tc", tags=["transport catalogue"])
