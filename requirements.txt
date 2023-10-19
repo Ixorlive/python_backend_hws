@@ -1,6 +1,0 @@
-black
-fastapi
-pre-commit
-pytest
-pytest-mock
-uvicorn
