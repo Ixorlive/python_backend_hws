@@ -1,0 +1,6 @@
+bcrypt
+black
+pre-commit
+pymongo[src]
+pytest
+pytest-mock

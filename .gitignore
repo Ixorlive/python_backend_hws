@@ -1,17 +1,54 @@
-/.idea/*
-.idea
+# Vim
+Session.vim
+
+# Python
+*$py.class
+__pycache__/
+*.py[cod]
+*.pyo
+pip-log.txt
+pip-delete-this-directory.txt
+.pytest_cache/
 
 # Environments
+egg-info/
+egg
+venv/
+virtualenv/
 .env
-.venv
 env/
 venv/
 ENV/
 env.bak/
 venv.bak/
 
-### Python ###
-# Byte-compiled / optimized / DLL files
-__pycache__/
-*.py[cod]
-*$py.class
+# Go
+*.exe
+*.test
+*.out
+bin/
+pkg/
+
+# Default directories and files
+.DS_Store
+node_modules/
+*.log
+*.bak
+*.swp
+*.swo
+*.swn
+*.tmp
+*.temp
+*.tlog
+
+# Editors and IDEs
+.vscode/
+.idea/
+*.sublime*
+*.iml
+
+# OS generated files
+Thumbs.db
+.DS_Store?
+ehthumbs.db
+Desktop.ini

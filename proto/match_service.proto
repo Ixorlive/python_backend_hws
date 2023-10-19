@@ -1,0 +1,44 @@
+syntax = "proto3";
+package matchservice;
+
+option go_package = "proto_gen/matchservicepb";
+
+service MatchService {
+  rpc AddMatch(AddMatchRequest) returns (MatchResponse);
+  rpc UpdateMatchTime(UpdateMatchTimeRequest) returns (MatchResponse);
+  rpc MarkMatchAsCompleted(MarkMatchRequest) returns (MatchResponse);
+  rpc ListMatches(ListMatchesRequest) returns (ListMatchesResponse);
+}
+
+enum MatchStatus {
+  UPCOMING = 0;
+  ONGOING = 1;
+  COMPLETED = 2;
+}
+
+message Match {
+  string id = 1;
+  string team1 = 2;
+  string team2 = 3;
+  string match_time = 4;
+  MatchStatus status = 5;
+}
+
+message AddMatchRequest {
+  string team1 = 1;
+  string team2 = 2;
+  string match_time = 3;
+}
+
+message UpdateMatchTimeRequest {
+  string id = 1;
+  string new_time = 2;
+}
+
+message MarkMatchRequest { string id = 1; }
+
+message MatchResponse { Match match = 1; }
+
+message ListMatchesRequest { MatchStatus status_filter = 1; }
+
+message ListMatchesResponse { repeated Match matches = 1; }

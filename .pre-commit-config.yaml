@@ -4,7 +4,9 @@ repos:
     hooks:
       - id: check-yaml
       - id: end-of-file-fixer
+        exclude: \.pb\.go$|\.pb\.py$|.proto$
       - id: trailing-whitespace
+        exclude: \.pb\.go$|\.pb\.py$|.proto$
       - id: requirements-txt-fixer
   - repo: https://github.com/psf/black
     rev: 22.3.0
