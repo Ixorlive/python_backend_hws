@@ -1,0 +1,7 @@
+black
+fastapi
+grpcio-tools
+pre-commit
+pytest
+pytest-mock
+uvicorn

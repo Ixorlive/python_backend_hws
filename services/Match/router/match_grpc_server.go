@@ -6,16 +6,16 @@ import (
 	"context"
 )
 
-type MatchServer struct {
+type MatchGRPCServer struct {
 	repo domain.MatchRepository
 	pb.UnimplementedMatchServiceServer
 }
 
-func NewMatchServer(r domain.MatchRepository) *MatchServer {
-	return &MatchServer{repo: r}
+func NewMatchGRPCServer(r domain.MatchRepository) *MatchGRPCServer {
+	return &MatchGRPCServer{repo: r}
 }
 
-func (s *MatchServer) AddMatch(ctx context.Context, req *pb.AddMatchRequest) (*pb.MatchResponse, error) {
+func (s *MatchGRPCServer) AddMatch(ctx context.Context, req *pb.AddMatchRequest) (*pb.MatchResponse, error) {
 	match := domain.Match{
 		Team1:     req.GetTeam1(),
 		Team2:     req.GetTeam2(),
@@ -31,7 +31,7 @@ func (s *MatchServer) AddMatch(ctx context.Context, req *pb.AddMatchRequest) (*p
 	return &pb.MatchResponse{Match: convertDomainMatchToProto(storedMatch)}, nil
 }
 
-func (s *MatchServer) UpdateMatchTime(ctx context.Context, req *pb.UpdateMatchTimeRequest) (*pb.MatchResponse, error) {
+func (s *MatchGRPCServer) UpdateMatchTime(ctx context.Context, req *pb.UpdateMatchTimeRequest) (*pb.MatchResponse, error) {
 	storedMatch, err := s.repo.UpdateMatchTime(ctx, req.GetId(), req.GetNewTime())
 	if err != nil {
 		return nil, err
@@ -40,7 +40,7 @@ func (s *MatchServer) UpdateMatchTime(ctx context.Context, req *pb.UpdateMatchTi
 	return &pb.MatchResponse{Match: convertDomainMatchToProto(storedMatch)}, nil
 }
 
-func (s *MatchServer) MarkMatchAsCompleted(ctx context.Context, req *pb.MarkMatchRequest) (*pb.MatchResponse, error) {
+func (s *MatchGRPCServer) MarkMatchAsCompleted(ctx context.Context, req *pb.MarkMatchRequest) (*pb.MatchResponse, error) {
 	storedMatch, err := s.repo.MarkMatchAsCompleted(ctx, req.GetId())
 	if err != nil {
 		return nil, err
@@ -60,7 +60,7 @@ func convertDomainMatchToProto(m domain.Match) *pb.Match {
 	}
 }
 
-func (s *MatchServer) ListMatches(ctx context.Context, req *pb.ListMatchesRequest) (*pb.ListMatchesResponse, error) {
+func (s *MatchGRPCServer) ListMatches(ctx context.Context, req *pb.ListMatchesRequest) (*pb.ListMatchesResponse, error) {
 	matches, err := s.repo.ListMatches(ctx, domain.MatchStatus(req.GetStatusFilter()))
 	if err != nil {
 		return nil, err

@@ -1,5 +1,7 @@
 syntax = "proto3";
 
+option go_package = "proto_gen/identityservicepb";
+
 service UserAuth {
     rpc Register (UserInfo) returns (Confirmation);
     rpc Login (UserCredentials) returns (LoginConfirmation);
@@ -34,7 +36,7 @@ message Amount {
 
 message Transaction {
     string login = 1;
-    double amount = 2;
+    int32 amount = 2;
 }
 
 message Confirmation {

@@ -1,10 +1,9 @@
 from concurrent import futures
 
 import grpc
-from pymongo import MongoClient
-
 import proto_gen.user_auth_pb2_grpc as user_auth_pb2_grpc
 from infras.mongodb.account_repo import AccountRepo
+from pymongo import MongoClient
 from router.auth_grpc_server import UserAuthServicer
 from user_manager import UserManager
 
@@ -30,5 +29,4 @@ def serve():
     server.wait_for_termination()
 
 
-if __name__ == "__main__":
-    serve()
+serve()

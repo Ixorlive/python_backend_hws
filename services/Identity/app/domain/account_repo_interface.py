@@ -21,7 +21,7 @@ class IAccountRepo(ABC):
         pass
 
     @abstractmethod
-    def update_balance(self, login: str, amount: float) -> bool:
+    def update_balance(self, login: str, amount: int) -> bool:
         """
         Update the balance of a user by a certain amount. This can be positive (for deposits)
         or negative (for withdrawals).

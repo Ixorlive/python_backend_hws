@@ -1,5 +1,4 @@
 import bcrypt
-
 import domain.errors as errors
 from domain.account import Account
 from domain.account_repo_interface import IAccountRepo
@@ -43,7 +42,7 @@ class UserManager:
         acc = self._get_account_or_raise_exception(login)
         if acc.balance < amount:
             raise errors.InsufficientFundsException
-        return self.repo.update_balance(login, amount)
+        return self.repo.update_balance(login, -amount)
 
     def _get_account_or_raise_exception(self, login: str):
         acc = self.repo.find_by_login(login)

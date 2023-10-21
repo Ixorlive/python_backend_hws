@@ -26,7 +26,7 @@ func main() {
 
 	// Create and run gRPC server
 	grpcServer := grpc.NewServer()
-	matchServer := router.NewMatchServer(matchRepo)
+	matchServer := router.NewMatchGRPCServer(matchRepo)
 	pb.RegisterMatchServiceServer(grpcServer, matchServer)
 
 	listener, err := net.Listen("tcp", GRPC_PORT)

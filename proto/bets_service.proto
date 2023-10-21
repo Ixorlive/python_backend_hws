@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package bets;
+
+option go_package = "proto_gen/betservicepb";
+
+service Bets {
+    rpc PlaceBet(PlaceBetRequest) returns (Confirmation);
+    rpc CalculateOdds(CalculateOddsRequest) returns (CalculateOddsResponse);
+}
+
+message Confirmation {
+    bool success = 1;
+    string message = 2;
+}
+
+message PlaceBetRequest {
+    string login = 1;
+    string matchID = 2;
+    int32 team_pos = 3;
+    int32 amount = 4;
+}
+
+message CalculateOddsRequest {
+    string matchID = 1;
+}
+
+message CalculateOddsResponse {
+    double oddsTeam1 = 1;
+    double oddsTeam2 = 2;
+}

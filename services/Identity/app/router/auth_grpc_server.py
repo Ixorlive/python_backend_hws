@@ -1,5 +1,3 @@
-from concurrent import futures
-
 import domain.errors as errors
 import proto_gen.user_auth_pb2 as user_auth_pb2
 import proto_gen.user_auth_pb2_grpc as user_auth_pb2_grpc

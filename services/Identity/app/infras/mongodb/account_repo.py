@@ -1,7 +1,5 @@
 from typing import Optional
 
-from pymongo.database import Database
-
 from domain.account import Account
 from domain.account_repo_interface import IAccountRepo
 from pymongo import MongoClient
@@ -30,7 +28,7 @@ class AccountRepo(IAccountRepo):
         doc = self.user_accounts.find_one({"login": login})
         return self._get_account_from_doc(doc)
 
-    def update_balance(self, login: str, amount: float) -> bool:
+    def update_balance(self, login: str, amount: int) -> bool:
         filter_criteria = {"login": login}
         update_data = {"$inc": {"balance": amount}}
 
