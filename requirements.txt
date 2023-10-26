@@ -1,6 +1,4 @@
 black
-fastapi
+celery
 pre-commit
 pytest
-pytest-mock
-uvicorn
